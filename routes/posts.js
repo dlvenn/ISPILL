@@ -95,7 +95,7 @@ router.post("/store", upload, function (req, res, next) {
   });
 });
 
-// EDIT POST (Sherly)
+// EDIT POST
 router.get("/edit/(:id)", function (req, res, next) {
   let id = req.params.id;
 
@@ -123,9 +123,70 @@ router.get("/edit/(:id)", function (req, res, next) {
   );
 });
 
-// UPDATE POST (Gaoden)
+// UPDATE POST
+router.post('/update/:id', function(req, res, next) {
+    upload(req, res, function(err) {
+        if (err) {
+            req.flash('error', 'Error uploading file.');
+            console.error('Upload Error:', err);
+            return res.redirect('/posts/edit/' + req.params.id);
+        }
 
-// DELETE POST (Natasha)
+        let id = req.params.id;
+        let nama_produk = req.body.nama_produk;
+        let link = req.body.link;
+        let old_gambar_produk = req.body.old_gambar_produk;
+        let gambar_produk = req.file ? req.file.filename : old_gambar_produk;
+        let errors = false;
+
+        console.log('Nama Produk:', nama_produk);
+        console.log('Link:', link);
+        console.log('Old Gambar Produk:', old_gambar_produk);
+        console.log('Gambar Produk:', gambar_produk);
+
+        if (!nama_produk) {
+            errors = true;
+            req.flash('error', "Silahkan Masukkan Nama Produk");
+        }
+
+        if (!link) {
+            errors = true;
+            req.flash('error', "Silahkan Masukkan Link");
+        }
+
+        if (errors) {
+            return res.render('posts/edit', {
+                id: id,
+                nama_produk: nama_produk,
+                link: link,
+                gambar_produk: old_gambar_produk
+            });
+        }
+
+        let formData = {
+            gambar_produk: gambar_produk,
+            nama_produk: nama_produk,
+            link: link
+        };
+
+        connection.query('UPDATE posts SET ? WHERE id = ?', [formData, id], function(err, result) {
+            if (err) {
+                req.flash('error', err);
+                return res.render('posts/edit', {
+                    id: id,
+                    nama_produk: nama_produk,
+                    link: link,
+                    gambar_produk: old_gambar_produk 
+                });
+            } else {
+                req.flash('success', 'Data Berhasil Diupdate!');
+                return res.redirect('/posts');
+            }
+        });
+    });
+});
+
+// DELETE POST
 router.get('/delete/(:id)', function(req, res, next) {
 
     let id = req.params.id;
