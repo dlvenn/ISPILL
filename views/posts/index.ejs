@@ -70,6 +70,15 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
+
+                <% if (messages.success) { %>
+                    <div class="alert alert-success" role="alert"><%- messages.success %></div>
+                <% } %>
+
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger" role="alert"><%- messages.error %></div>
+                <% } %>
+
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <a href="posts/create" class="btn btn-md btn-success mb-3">Tambah Link Produk</a>
@@ -106,7 +115,7 @@
                                                     <a href="/posts/edit/<%= data[i].id %>" class="btn-action">
                                                         <i class="fas fa-edit" style="color: #74C0FC;"></i>
                                                     </a>
-                                                    <a href="/posts/delete/<%= data[i].id %>" class="btn-action">
+                                                    <a onclick="return alert('Are You sure?')" href="/posts/delete/<%= data[i].id %>" class="btn-action">
                                                         <i class="fas fa-trash" style="color:#ff6b6b"></i>
                                                     </a>
                                                 </td>
