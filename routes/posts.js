@@ -22,21 +22,21 @@ var storage = multer.diskStorage({
 // Init upload
 var upload = multer({
   storage: storage,
-  limits: { fileSize: 1000000 },
+  limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
 }).single("gambar_produk");
 
 function checkFileType(file, cb) {
-  var filetypes = /jpeg|jpg|png|gif/;
+  var filetypes = /jpeg|jpg|png|gifmp4|mkv|avi/;
   var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   var mimetype = filetypes.test(file.mimetype);
 
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb("Error: Images Only!");
+    cb("Error: Images & Video Only!");
   }
 }
 
@@ -59,8 +59,10 @@ router.get("/create", function (req, res, next) {
     gambar_produk: "",
     nama_produk: "",
     link: "",
-    kategori_produk: "",
+    ecommerce: "",
     pic: "",
+    status: "",
+    insight: "",
   });
 });
 
@@ -76,15 +78,15 @@ router.post("/store", upload, function (req, res, next) {
   }
 
   var gambar_produk = req.file.filename;
-  var { nama_produk, link, kategori_produk, pic } = req.body;
+  var { nama_produk, link, ecommerce, pic, status, insight } = req.body;
 
   if (!nama_produk || !link) {
     req.flash("error", "Silakan lengkapi semua kolom");
-    console.error("Validation Error:", { nama_produk, link, gambar_produk, kategori_produk, pic });
+    console.error("Validation Error:", { nama_produk, link, gambar_produk, ecommerce, pic, status, insight });
     return res.redirect("/posts/create");
   }
 
-  var formData = { gambar_produk, nama_produk, link, kategori_produk, pic };
+  var formData = { gambar_produk, nama_produk, link, ecommerce, pic, status, insight };
   connection.query("INSERT INTO posts SET ?", formData, function (err, result) {
     if (err) {
       req.flash("error", "Gagal menyimpan data. Silakan coba lagi.");
@@ -119,8 +121,10 @@ router.get("/edit/(:id)", function (req, res, next) {
           gambar_produk: rows[0].gambar_produk,
           nama_produk: rows[0].nama_produk,
           link: rows[0].link,
-          kategori_produk: rows[0].kategori_produk,
+          ecommerce: rows[0].ecommerce,
           pic: rows[0].pic,
+          status: rows[0].status,
+          insight: rows[0].insight,
         });
       }
     }
@@ -139,16 +143,20 @@ router.post('/update/:id', function(req, res, next) {
         let id = req.params.id;
         let nama_produk = req.body.nama_produk;
         let link = req.body.link;
-        let kategori_produk = req.body.kategori_produk;
+        let ecommerce = req.body.ecommerce;
         let pic = req.body.pic;
+        let status = req.body.status;
+        let insight = req.body.insight;
         let old_gambar_produk = req.body.old_gambar_produk;
         let gambar_produk = req.file ? req.file.filename : old_gambar_produk;
         let errors = false;
 
         console.log('Nama Produk:', nama_produk);
         console.log('Link:', link);
-        console.log('Kategori Produk:', kategori_produk);
+        console.log('E-Commerce:', ecommerce);
         console.log('PIC:', pic);
+        console.log('Status:', status);
+        console.log('Insight:', insight);
         console.log('Old Gambar Produk:', old_gambar_produk);
         console.log('Gambar Produk:', gambar_produk);
 
@@ -162,23 +170,35 @@ router.post('/update/:id', function(req, res, next) {
             req.flash('error', "Silahkan Masukkan Link");
         }
 
-        if (!kategori_produk) {
-          errors = true;
-          req.flash('error', "Silahkan Masukkan Kategori Produk");
-       }
+        if (!ecommerce) {
+            errors = true;
+            req.flash('error', "Silahkan Masukkan Nama E-Commerce");
+        }
 
-       if (!pic) {
-        errors = true;
-        req.flash('error', "Silahkan Masukkan Nama PIC");
-       }
+        if (!pic) {
+            errors = true;
+            req.flash('error', "Silahkan Masukkan Nama PIC");
+        }
+
+        if (!status) {
+            errors = true;
+            req.flash('error', "Silahkan Masukkan Status Konten Tiktok");
+        }
+
+       if (!insight) {
+            errors = true;
+            req.flash('error', "Silahkan Masukkan Insight Konten Tiktok");
+        }
 
         if (errors) {
             return res.render('posts/edit', {
                 id: id,
                 nama_produk: nama_produk,
                 link: link,
-                kategori_produk: kategori_produk,
+                ecommerce: ecommerce,
                 pic: pic,
+                status: status,
+                insight: insight,
                 gambar_produk: old_gambar_produk
             });
         }
@@ -187,8 +207,10 @@ router.post('/update/:id', function(req, res, next) {
             gambar_produk: gambar_produk,
             nama_produk: nama_produk,
             link: link,
-            kategori_produk: kategori_produk,
-            pic: pic
+            ecommerce: ecommerce,
+            pic: pic,
+            status: status,
+            insight: insight,
         };
 
         connection.query('UPDATE posts SET ? WHERE id = ?', [formData, id], function(err, result) {
@@ -198,8 +220,10 @@ router.post('/update/:id', function(req, res, next) {
                     id: id,
                     nama_produk: nama_produk,
                     link: link,
-                    kategori_produk: kategori_produk,
+                    ecommerce: ecommerce,
                     pic: pic,
+                    status: status,
+                    insight: insight,
                     gambar_produk: old_gambar_produk 
                 });
             } else {
