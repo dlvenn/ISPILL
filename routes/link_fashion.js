@@ -78,7 +78,7 @@ router.post("/store", upload, function (req, res, next) {
   }
 
   var gambar_produk = req.file.filename;
-  var { nama_produk, link, ecommerce, pic, status, jumlah_view, jumlah_like, jumlah_comment, jumlah_share, jumlah_pengikut_baru } = req.body;
+  var { nama_produk, link, ecommerce, pic, status, jumlah_view, jumlah_like, jumlah_comment, jumlah_share, komisi } = req.body;
 
   if (!nama_produk || !link) {
     req.flash("error", "Silakan lengkapi semua kolom");
@@ -86,7 +86,7 @@ router.post("/store", upload, function (req, res, next) {
     return res.redirect("/link_fashion/create");
   }
 
-  var formData = { gambar_produk, nama_produk, link, ecommerce, pic, status, jumlah_view, jumlah_like, jumlah_comment, jumlah_share, jumlah_pengikut_baru };
+  var formData = { gambar_produk, nama_produk, link, ecommerce, pic, status, jumlah_view, jumlah_like, jumlah_comment, jumlah_share, komisi };
   connection.query("INSERT INTO link_fashion SET ?", formData, function (err, result) {
     if (err) {
       req.flash("error", "Gagal menyimpan data. Silakan coba lagi.");
@@ -128,7 +128,7 @@ router.get("/edit/(:id)", function (req, res, next) {
           jumlah_like: rows[0].jumlah_like,
           jumlah_comment: rows [0].jumlah_comment,
           jumlah_share: rows [0].jumlah_share,
-          jumlah_pengikut_baru: rows[0].jumlah_pengikut_baru,
+          komisi: rows[0].komisi,
         });
       }
     }
@@ -154,7 +154,7 @@ router.post('/update/:id', function(req, res, next) {
         let jumlah_like = req.body.jumlah_like;
         let jumlah_comment = req.body.jumlah_comment;
         let jumlah_share =req.body.jumlah_share;
-        let jumlah_pengikut_baru = req.body.jumlah_pengikut_baru;
+        let komisi = req.body.komisi;
         let old_gambar_produk = req.body.old_gambar_produk;
         let gambar_produk = req.file ? req.file.filename : old_gambar_produk;
         let errors = false;
@@ -212,9 +212,9 @@ router.post('/update/:id', function(req, res, next) {
             req.flash('error', "Silahkan Masukkan Jumlah Share Tiktok");
         }
 
-        if (!jumlah_pengikut_baru) {
+        if (!komisi) {
             errors = true;
-            req.flash('error', "Silahkan Masukkan Jumlah Pengikut Baru Tiktok");
+            req.flash('error', "Silahkan Masukkan Jumlah Komisi");
         }
 
         if (errors) {
@@ -229,7 +229,7 @@ router.post('/update/:id', function(req, res, next) {
                 jumlah_like: jumlah_like,
                 jumlah_comment: jumlah_comment,
                 jumlah_share: jumlah_share,
-                jumlah_pengikut_baru: jumlah_pengikut_baru,
+                komisi: komisi,
                 gambar_produk: old_gambar_produk
             });
         }
@@ -245,7 +245,7 @@ router.post('/update/:id', function(req, res, next) {
             jumlah_like: jumlah_like,
             jumlah_comment: jumlah_comment,
             jumlah_share: jumlah_share,
-            jumlah_pengikut_baru: jumlah_pengikut_baru
+            komisi: komisi
         };
 
         connection.query('UPDATE link_fashion SET ? WHERE id = ?', [formData, id], function(err, result) {
@@ -262,7 +262,7 @@ router.post('/update/:id', function(req, res, next) {
                     jumlah_like: jumlah_like,
                     jumlah_comment: jumlah_comment,
                     jumlah_share: jumlah_share,
-                    jumlah_pengikut_baru: jumlah_pengikut_baru,
+                    komisi: komisi,
                     gambar_produk: old_gambar_produk 
                 });
             } else {
