@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Insight</label>
-                                <input type="text" class="form-control" name="insight" value="<%= insight %>" placeholder="Masukkan Insight Konten Tiktok">
+                                <textarea id="insight" class="form-control" name="insight" rows="5"></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
@@ -63,6 +63,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let defaultInsight = `Jumlah Views: 
+            
+Jumlah Like: 
+
+Jumlah Comment: 
+
+Jumlah Share: 
+
+Jumlah Pengikut Baru: `;
+            let insightField = document.getElementById("insight");
+                
+            if (!insightField.value.trim()) {
+                insightField.value = defaultInsight;
+            }
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
