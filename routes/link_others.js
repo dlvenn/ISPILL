@@ -43,19 +43,19 @@ function checkFileType(file, cb) {
 // INDEX POSTS
 router.get("/", function (req, res, next) {
   //query
-  connection.query("SELECT * FROM posts ORDER BY id ASC", function (err, rows) {
+  connection.query("SELECT * FROM link_others ORDER BY id ASC", function (err, rows) {
     if (err) {
       req.flash("error", err);
-      res.render("posts/index", { data: "" });
+      res.render("link_others/index", { data: "" });
     } else {
-      res.render("posts/index", { data: rows });
+      res.render("link_others/index", { data: rows });
     }
   });
 });
 
 // CREATE POST
 router.get("/create", function (req, res, next) {
-  res.render("posts/create", {
+  res.render("link_others/create", {
     gambar_produk: "",
     nama_produk: "",
     link: "",
@@ -74,7 +74,7 @@ router.post("/store", upload, function (req, res, next) {
   if (!req.file) {
     req.flash("error", "Silakan masukkan gambar_produk");
     console.error("File not found in request");
-    return res.redirect("/posts/create");
+    return res.redirect("/link_others/create");
   }
 
   var gambar_produk = req.file.filename;
@@ -83,18 +83,18 @@ router.post("/store", upload, function (req, res, next) {
   if (!nama_produk || !link) {
     req.flash("error", "Silakan lengkapi semua kolom");
     console.error("Validation Error:", { nama_produk, link, gambar_produk, ecommerce, pic, status, insight });
-    return res.redirect("/posts/create");
+    return res.redirect("/link_others/create");
   }
 
   var formData = { gambar_produk, nama_produk, link, ecommerce, pic, status, insight };
-  connection.query("INSERT INTO posts SET ?", formData, function (err, result) {
+  connection.query("INSERT INTO link_others SET ?", formData, function (err, result) {
     if (err) {
       req.flash("error", "Gagal menyimpan data. Silakan coba lagi.");
       console.error("Database Error:", err);
-      return res.redirect("/posts/create");
+      return res.redirect("/link_others/create");
     } else {
       req.flash("success", "Data berhasil disimpan!");
-      return res.redirect("/posts");
+      return res.redirect("/link_others");
     }
   });
 });
@@ -104,19 +104,19 @@ router.get("/edit/(:id)", function (req, res, next) {
   let id = req.params.id;
 
   connection.query(
-    "SELECT * FROM posts WHERE id = " + id,
+    "SELECT * FROM link_others WHERE id = " + id,
     function (err, rows, fields) {
       if (err) throw err;
 
       // if user not found
       if (rows.length <= 0) {
         req.flash("error", "Data Post Dengan ID " + id + " Tidak Ditemukan");
-        res.redirect("/posts");
+        res.redirect("/link_others");
       }
       // if book found
       else {
         // render to edit.ejs
-        res.render("posts/edit", {
+        res.render("link_others/edit", {
           id: rows[0].id,
           gambar_produk: rows[0].gambar_produk,
           nama_produk: rows[0].nama_produk,
@@ -137,7 +137,7 @@ router.post('/update/:id', function(req, res, next) {
         if (err) {
             req.flash('error', 'Error uploading file.');
             console.error('Upload Error:', err);
-            return res.redirect('/posts/edit/' + req.params.id);
+            return res.redirect('/link_others/edit/' + req.params.id);
         }
 
         let id = req.params.id;
@@ -191,7 +191,7 @@ router.post('/update/:id', function(req, res, next) {
         }
 
         if (errors) {
-            return res.render('posts/edit', {
+            return res.render('link_others/edit', {
                 id: id,
                 nama_produk: nama_produk,
                 link: link,
@@ -213,10 +213,10 @@ router.post('/update/:id', function(req, res, next) {
             insight: insight,
         };
 
-        connection.query('UPDATE posts SET ? WHERE id = ?', [formData, id], function(err, result) {
+        connection.query('UPDATE link_others SET ? WHERE id = ?', [formData, id], function(err, result) {
             if (err) {
                 req.flash('error', err);
-                return res.render('posts/edit', {
+                return res.render('link_others/edit', {
                     id: id,
                     nama_produk: nama_produk,
                     link: link,
@@ -228,7 +228,7 @@ router.post('/update/:id', function(req, res, next) {
                 });
             } else {
                 req.flash('success', 'Data Berhasil Diupdate!');
-                return res.redirect('/posts');
+                return res.redirect('/link_others');
             }
         });
     });
@@ -239,18 +239,18 @@ router.get('/delete/(:id)', function(req, res, next) {
 
     let id = req.params.id;
      
-    connection.query('DELETE FROM posts WHERE id = ' + id, function(err, result) {
+    connection.query('DELETE FROM link_others WHERE id = ' + id, function(err, result) {
         //if(err) throw err
         if (err) {
             // set flash message
             req.flash('error', err)
             // redirect to posts page
-            res.redirect('/posts')
+            res.redirect('/link_others')
         } else {
             // set flash message
             req.flash('success', 'Data Berhasil Dihapus!')
             // redirect to posts page
-            res.redirect('/posts')
+            res.redirect('/link_others')
         }
     })
 });

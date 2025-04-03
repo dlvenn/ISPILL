@@ -81,7 +81,7 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="posts/create" class="btn btn-md btn-success mb-3">Tambah Link Produk</a>
+                        <a href="link_beauty/create" class="btn btn-md btn-success mb-3">Tambah Produk Beauty</a>
                         <div class="table-container">
                             <table class="table table-bordered">
                                 <thead>
@@ -112,10 +112,10 @@
                                                 <td><%= data[i].status %></td>
                                                 <td><%= data[i].insight %></td>
                                                 <td>
-                                                    <a href="/posts/edit/<%= data[i].id %>" class="btn-action">
+                                                    <a href="/link_beauty/edit/<%= data[i].id %>" class="btn-action">
                                                         <i class="fas fa-edit" style="color: #74C0FC;"></i>
                                                     </a>
-                                                    <a onclick="return alert('Are You sure?')" href="/posts/delete/<%= data[i].id %>" class="btn-action">
+                                                    <a onclick="return alert('Are You sure?')" href="/link_beauty/delete/<%= data[i].id %>" class="btn-action">
                                                         <i class="fas fa-trash" style="color:#ff6b6b"></i>
                                                     </a>
                                                 </td>

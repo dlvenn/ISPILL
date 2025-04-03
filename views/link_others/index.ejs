@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Blogs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .table-container {
+            overflow-x: auto;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            border: 0.5px solid #000;
+            padding: 10px;
+            background-color: #fff6e7;
+        }
+        .table thead th {
+            background-color: #e6c58d;
+        }
+        .id-col {
+            width: 50px;
+        }
+        .link-col {
+            min-width: 140px;
+        }
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            padding: 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .btn-action i {
+            font-size: 18px;
+            transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+        }
+        .btn-action:hover i {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+        .btn-success {
+            background-color: #e6c58d;
+            border: none;
+            color: #000;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        .btn-success:hover {
+            background-color: #c49b56 !important;
+        }
+    </style>
+</head>
+
+<body style="background: lightgray">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+
+                <% if (messages.success) { %>
+                    <div class="alert alert-success" role="alert"><%- messages.success %></div>
+                <% } %>
+
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger" role="alert"><%- messages.error %></div>
+                <% } %>
+
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <a href="link_others/create" class="btn btn-md btn-success mb-3">Tambah Produk Lainnya</a>
+                        <div class="table-container">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Gambar</th>
+                                        <th scope="col">Nama Produk</th>
+                                        <th scope="col">Link</th>
+                                        <th scope="col">E-Commerce</th>
+                                        <th scope="col">PIC</th>
+                                        <th scope="col">Status Konten</th>
+                                        <th scope="col">Insight</th>
+                                        <th scope="col">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(data.length){
+                                        for(var i = 0; i < data.length; i++) { %>  
+                                            <tr>
+                                                <td class="id-col"><%= (i+1) %></td>
+                                                <td>
+                                                    <img src="/uploads/<%= data[i].gambar_produk %>" alt="<%= data[i].gambar_produk %>" style="width: 100px; height: auto;">
+                                                </td>
+                                                <td><%= data[i].nama_produk %></td>
+                                                <td class="link-col"><%= data[i].link %></td>
+                                                <td><%= data[i].ecommerce %></td>
+                                                <td><%= data[i].pic %></td>
+                                                <td><%= data[i].status %></td>
+                                                <td><%= data[i].insight %></td>
+                                                <td>
+                                                    <a href="/link_others/edit/<%= data[i].id %>" class="btn-action">
+                                                        <i class="fas fa-edit" style="color: #74C0FC;"></i>
+                                                    </a>
+                                                    <a onclick="return alert('Are You sure?')" href="/link_others/delete/<%= data[i].id %>" class="btn-action">
+                                                        <i class="fas fa-trash" style="color:#ff6b6b"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <% } 
+                                    } else { %>
+                                        <tr>
+                                            <td colspan="9" class="text-center">
+                                                <div class="alert alert-danger" role="alert">
+                                                    Data Tidak Ditemukan!
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <% } %>    
+                                </tbody>
+                            </table>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+</body>
+</html>

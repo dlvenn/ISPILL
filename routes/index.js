@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  connection.query('SELECT * FROM posts ORDER BY jd DESC', function (err, rows) {
+  connection.query('SELECT * FROM link_fashion ORDER BY id ASC', function (err, rows) {
     if (err) {
       req.flash('error', err);
       //res.render('posts/index', { data: ''});

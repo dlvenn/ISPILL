@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Blogs</title>
+    <title>Edit Link Produk</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
@@ -17,18 +17,18 @@
             <div class="col-md-12">
                 <% if (messages.error) { %>
                     <div class="alert alert-danger" role="alert"><%- messages.error %></div>
-                    <% } %>
+                <% } %>
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action="/posts/store" method="post" enctype="multipart/form-data">
+                        <form action="/link_fashion/update/<%= id %>" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Gambar Produk</label>
                                 <div>
                                     <img src="/uploads/<%= gambar_produk %>" alt="<%= gambar_produk %>" style="width: 130px; height: auto;">
                                 </div>
-                                <input type="file" class="form-control" name="gambar_produk" accept="image/*">
+                                <input type="file" class="form-control" name="gambar_produk">
+                                <input type="hidden" name="old_gambar_produk" value="<%= gambar_produk %>">
                             </div>
-                                
                             <div class="form-group">
                                 <label>Nama Produk</label>
                                 <input type="text" class="form-control" name="nama_produk" value="<%= nama_produk %>" placeholder="Masukkan Nama Produk">
@@ -46,7 +46,7 @@
                                 <input type="text" class="form-control" name="pic" value="<%= pic %>" placeholder="Masukkan Nama PIC">
                             </div>
                             <div class="form-group">
-                                <label>Status</label>
+                                <label>Status Konten</label>
                                 <input type="text" class="form-control" name="status" value="<%= status %>" placeholder="Masukkan Status/Keterangan Konten Tiktok">
                             </div>
                             <div class="form-group">
@@ -54,9 +54,9 @@
                                 <input type="text" class="form-control" name="insight" value="<%= insight %>" placeholder="Masukkan Insight Konten Tiktok">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">SIMPAN</button>
-                            <button type="reset" class="btn btn-warning">RESET</button>
-
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="reset" class="btn btn-warning">Reset</button>
+                            
                         </form>
                     </div>
                 </div>

@@ -10,7 +10,9 @@ var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var postsRouter = require('./routes/posts'); // <-- route posts
+var link_fashionRouter = require('./routes/link_fashion'); // <-- route posts
+var link_beautyRouter = require('./routes/link_beauty');
+var link_othersRouter = require('./routes/link_others');
 
 var app = express();
 
@@ -38,7 +40,9 @@ app.use(flash())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/posts', postsRouter); // use route posts di Express
+app.use('/link_fashion', link_fashionRouter); // use route posts di Express
+app.use('/link_beauty', link_beautyRouter);
+app.use('/link_others', link_othersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
