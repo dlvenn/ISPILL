@@ -71,6 +71,15 @@
             background-color: #f7e6c9;
             color: #876120;
         }
+        .table td ul {
+            text-align: left;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .table td ul li {
+            padding-left: 0;
+        }
     </style>
 </head>
 
@@ -123,7 +132,16 @@
                                                 <td><%= data[i].ecommerce %></td>
                                                 <td><%= data[i].pic %></td>
                                                 <td><%= data[i].status %></td>
-                                                <td><%= data[i].insight %></td>
+                                                <td>
+                                                    <ul>
+                                                        <li>Views: <%= data[i].jumlah_view %></li>
+                                                        <li>Likes: <%= data[i].jumlah_like %></li>
+                                                        <li>Comments: <%= data[i].jumlah_comment %></li>
+                                                        <li>Shares: <%= data[i].jumlah_share %></li>
+                                                        <li>Pengikut Baru: <%= data[i].jumlah_pengikut_baru %></li>
+                                                    </ul>
+                                                </td>
+
                                                 <td>
                                                     <a href="/link_others/edit/<%= data[i].id %>" class="btn-action">
                                                         <i class="fas fa-edit" style="color: #74C0FC;"></i>

@@ -51,8 +51,24 @@
                             </div>
                             <div class="form-group">
                                 <label>Insight</label>
-                                <textarea id="insight" class="form-control" name="insight" rows="5"></textarea>
+                                <div class="insight-group">
+                                    <label>Jumlah View:</label>
+                                    <input type="number" class="form-control" name="jumlah_view" placeholder="Masukkan jumlah view" min="0">
+                                    
+                                    <label>Jumlah Like:</label>
+                                    <input type="number" class="form-control" name="jumlah_like" placeholder="Masukkan jumlah like" min="0">
+                                    
+                                    <label>Jumlah Comment:</label>
+                                    <input type="number" class="form-control" name="jumlah_comment" placeholder="Masukkan jumlah comment" min="0">
+                                    
+                                    <label>Jumlah Share:</label>
+                                    <input type="number" class="form-control" name="jumlah_share" placeholder="Masukkan jumlah share" min="0">
+                                    
+                                    <label>Jumlah Pengikut Baru:</label>
+                                    <input type="number" class="form-control" name="jumlah_pengikut_baru" placeholder="Masukkan jumlah pengikut baru" min="0">
+                                </div>
                             </div>
+
 
                             <button type="submit" class="btn btn-primary">SIMPAN</button>
                             <button type="reset" class="btn btn-warning">RESET</button>
@@ -63,25 +79,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let defaultInsight = `Jumlah Views: 
-            
-Jumlah Like: 
-
-Jumlah Comment: 
-
-Jumlah Share: 
-
-Jumlah Pengikut Baru: `;
-            let insightField = document.getElementById("insight");
-                
-            if (!insightField.value.trim()) {
-                insightField.value = defaultInsight;
-            }
-        });
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

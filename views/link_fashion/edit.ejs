@@ -51,7 +51,22 @@
                             </div>
                             <div class="form-group">
                                 <label>Insight</label>
-                                <input type="text" class="form-control" name="insight" value="<%= insight %>" placeholder="Masukkan Insight Konten Tiktok">
+                                <div class="insight-group">
+                                    <label>Jumlah View:</label>
+                                    <input type="number" class="form-control" name="jumlah_view" value="<%= jumlah_view %>" placeholder="Masukkan jumlah view" min="0">
+                                    
+                                    <label>Jumlah Like:</label>
+                                    <input type="number" class="form-control" name="jumlah_like" value="<%= jumlah_like %>" placeholder="Masukkan jumlah like" min="0">
+                                    
+                                    <label>Jumlah Comment:</label>
+                                    <input type="number" class="form-control" name="jumlah_comment" value="<%= jumlah_comment %>" placeholder="Masukkan jumlah comment" min="0">
+                                    
+                                    <label>Jumlah Share:</label>
+                                    <input type="number" class="form-control" name="jumlah_share" value="<%= jumlah_share %>" placeholder="Masukkan jumlah share" min="0">
+                                    
+                                    <label>Jumlah Pengikut Baru:</label>
+                                    <input type="number" class="form-control" name="jumlah_pengikut_baru" value="<%= jumlah_pengikut_baru %>" placeholder="Masukkan jumlah pengikut baru" min="0">
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Update</button>

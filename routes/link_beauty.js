@@ -199,22 +199,22 @@ router.post('/update/:id', function(req, res, next) {
 
         if (!jumlah_like) {
             errors = true;
-            req.flash('error', "Silahkan Masukkan Jumlah View Tiktok");
+            req.flash('error', "Silahkan Masukkan Jumlah Like Tiktok");
         }
 
         if (!jumlah_comment) {
             errors = true;
-            req.flash('error', "Silahkan Masukkan Jumlah View Tiktok");
+            req.flash('error', "Silahkan Masukkan Jumlah Comment Tiktok");
         }
 
         if (!jumlah_share) {
             errors = true;
-            req.flash('error', "Silahkan Masukkan Jumlah View Tiktok");
+            req.flash('error', "Silahkan Masukkan Jumlah Share Tiktok");
         }
 
         if (!jumlah_pengikut_baru) {
             errors = true;
-            req.flash('error', "Silahkan Masukkan Jumlah View Tiktok");
+            req.flash('error', "Silahkan Masukkan Jumlah Pengikut Baru Tiktok");
         }
 
         if (errors) {
